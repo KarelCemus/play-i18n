@@ -15,8 +15,14 @@ protected[ i18n ] case class MessageFile( key: String, name: String, loader: Mes
 
   /** loads messages in this file */
   def load: Map[ String, String ] = resources.map { resource =>
+    log.debug( s"Localization file '$resource'." )
     loader( UrlMessageSource( resource ), resource.toString ).fold( e => throw e, identity )
-  }.foldLeft( Map.empty[ String, String ] )( _ ++ _ )
+  }.foldLeft( Map.empty[ String, String ] )( _ ++ _ ).map {
+    case (k, v) =>
+      // debug loaded i18n pairs
+      log.trace( s"[$key] '$k': '$v'" )
+      k -> v
+  }
 }
 
 protected[ i18n ] object MessageFile {
