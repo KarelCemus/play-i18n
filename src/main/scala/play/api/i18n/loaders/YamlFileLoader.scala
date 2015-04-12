@@ -20,18 +20,36 @@ import org.yaml.snakeyaml.{DumperOptions, Yaml}
   */
 class YamlFileLoader extends MessagesLoader {
 
+  import scala.collection.JavaConverters._
+
+  private type JavaMap = java.util.Map[_, _]
+
   override def apply(messageSource: MessageSource, messageSourceName: String): Either[ExceptionSource, Map[String, String]] =
     try {
+      // YAML document parser
       val yaml = new Yaml(new Constructor(), new Representer(), new DumperOptions(), new CustomResolver())
-      val data = yaml.load(messageSource.read)
+      // load data as a hierarchical map
+      val data = yaml.loadAs(messageSource.read, classOf[JavaMap])
+      // flatten the map
       Right(flatten(data))
     } catch {
-      case exception: ScannerException => Left(new YamlSourceException(exception, messageSourceName))
+      case exception: ScannerException =>
+        // parsing failed, transform an error
+        val error = new YamlSourceException(exception, messageSourceName)
+        Left(error)
     }
 
-  private def flatten(data: Any): Map[String, String] = Map.empty
+  private def flatten(data: JavaMap): Map[String, String] = data.asScala.map {
+    // inner node
+    case (prefix: String, map: JavaMap) => flatten(map).map {
+      case (suffix, value) => s"$prefix.$suffix" -> value
+    }
+    // leaf
+    case (key: String, value: String) => Map(key -> value.trim)
+  }.fold(Map.empty)(_ ++ _)
 }
 
+/** Custom resolved disables parsing of numbers, dates and other types so it produces strings only */
 private class CustomResolver extends Resolver {
 
   override protected def addImplicitResolvers(): Unit = {
