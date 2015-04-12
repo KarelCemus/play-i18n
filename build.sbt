@@ -16,19 +16,22 @@ crossScalaVersions := Seq( scalaVersion.value, "2.10.4" )
 libraryDependencies ++= Seq(
   // play framework cache API
   "com.typesafe.play" %% "play-cache" % "2.3.8" % "provided",
+  // YAML parser, Java library
+  "org.yaml" % "snakeyaml" % "1.15",
   // test framework
-  "org.specs2" %% "specs2-core" % "2.4.15" % "test",
+  "org.specs2" %% "specs2-core" % "3.4" % "test",
   // test module for play framework
   "com.typesafe.play" %% "play-test" % "2.3.8" % "test"
 )
 
 resolvers ++= Seq(
-  "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
+  "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+  "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 )
 
 javacOptions ++= Seq( "-source", "1.6", "-target", "1.6", "-Xlint:unchecked", "-encoding", "UTF-8" )
 
-scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked" )
+scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-Yrangepos" )
 
 homepage := Some( url( "https://github.com/karelcemus/play-i18n" ) )
 
