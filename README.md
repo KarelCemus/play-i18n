@@ -6,6 +6,7 @@
 files. The syntax is not much convenient as involves a lot of repetition, thus this plugin delivers
 an alternative to supporting YAML format for messages including all features of the language.
 
+[![Build Status](http://jenkins.karelcemus.cz/buildStatus/icon?job=play-i18n)](http://jenkins.karelcemus.cz/job/play-i18n)
 
 ## How to add the plugin into the project
 
