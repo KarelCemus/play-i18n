@@ -13,7 +13,8 @@ class MultiFormatMessagingPlugin( app: Application ) extends DefaultMessagesPlug
 
   /** map of supported loaders, mapping format name -> format loader */
   protected def supportedFormats = List(
-    Format( "properties", None, PropertyFileLoader )
+    Format( "properties", None, PropertyFileLoader ),
+    Format( "yaml", Some("yaml"), YamlFileLoader )
   )
 
   /** enabled loaders, disabled are dropped */

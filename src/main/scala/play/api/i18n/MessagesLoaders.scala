@@ -14,6 +14,7 @@ trait MessagesLoaders {
 
   object PropertyFileLoader extends PropertyFileLoader
 
+  object YamlFileLoader extends YamlFileLoader
 
 }
 
