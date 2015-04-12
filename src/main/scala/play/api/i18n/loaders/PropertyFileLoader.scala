@@ -1,6 +1,7 @@
 package play.api.i18n.loaders
 
 import play.api.PlayException.ExceptionSource
+
 import play.api.i18n.Messages.MessageSource
 import play.api.i18n.{Messages, MessagesLoader}
 
@@ -10,8 +11,8 @@ import play.api.i18n.{Messages, MessagesLoader}
   */
 class PropertyFileLoader extends MessagesLoader {
 
-  override def apply( messageSource: MessageSource, messageSourceName: String ): Either[ ExceptionSource, Map[ String, String ] ] = {
-    new Messages.MessagesParser( messageSource, "" ).parse.right.map { messages =>
+  override def apply(messageSource: MessageSource, messageSourceName: String): Either[ExceptionSource, Map[String, String]] = {
+    new Messages.MessagesParser(messageSource, "").parse.right.map { messages =>
       messages.map { message => message.key -> message.pattern }.toMap
     }
   }

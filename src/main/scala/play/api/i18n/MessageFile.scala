@@ -1,14 +1,15 @@
 package play.api.i18n
 
 import play.api.Application
-import play.api.i18n.Messages.UrlMessageSource
 import play.utils.Resources
+
+import play.api.i18n.Messages.UrlMessageSource
 
 protected[ i18n ] case class MessageFile( key: String, name: String, loader: MessagesLoader )( implicit app: Application ) {
 
-  import MessageFile._
-
   import scala.collection.JavaConverters._
+
+  import MessageFile._
 
   /** resources on classpath matching this filename */
   private def resources = app.classloader.getResources( joinPaths( messagesPrefix, name ) ).asScala.filterNot( Resources.isDirectory )
@@ -17,7 +18,7 @@ protected[ i18n ] case class MessageFile( key: String, name: String, loader: Mes
   def load: Map[ String, String ] = resources.map { resource =>
     log.debug( s"Localization file '$resource'." )
     loader( UrlMessageSource( resource ), resource.toString ).fold( e => throw e, identity )
-  }.foldLeft( Map.empty[ String, String ] )( _ ++ _ ).map {
+  }.fold( Map.empty )( _ ++ _ ).map {
     case (k, v) =>
       // debug loaded i18n pairs
       log.trace( s"[$key] '$k': '$v'" )
