@@ -1,0 +1,11 @@
+a:
+  b.d: a={0} b={1} c={2}
+  x: This is an example
+  f: |
+     This
+     is
+     an
+     example
+  e: &idA
+    a: An example
+  g: *idA
