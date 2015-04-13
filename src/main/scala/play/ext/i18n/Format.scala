@@ -1,4 +1,4 @@
-package play.api.i18n
+package play.ext.i18n
 
 import play.api.Configuration
 

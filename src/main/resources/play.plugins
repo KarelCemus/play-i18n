@@ -1,1 +1,1 @@
-100:play.api.i18n.MultiFormatMessagingPlugin
+100:play.ext.i18n.MultiFormatMessagingPlugin

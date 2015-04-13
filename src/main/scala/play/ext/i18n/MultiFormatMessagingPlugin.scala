@@ -1,8 +1,9 @@
-package play.api.i18n
+package play.ext.i18n
 
 import play.api.Application
+import play.api.i18n.{Lang, DefaultMessagesPlugin}
 
-import play.api.i18n.MessagesLoaders._
+import play.ext.i18n.MessagesLoaders._
 
 /** Messaging plugin for parsing files in various different formats
   *

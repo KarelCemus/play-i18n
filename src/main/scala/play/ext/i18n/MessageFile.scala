@@ -1,9 +1,9 @@
-package play.api.i18n
+package play.ext.i18n
 
 import play.api.Application
-import play.utils.Resources
-
+import play.api.i18n.Lang
 import play.api.i18n.Messages.UrlMessageSource
+import play.utils.Resources
 
 protected[ i18n ] case class MessageFile( key: String, name: String, loader: MessagesLoader )( implicit app: Application ) {
 

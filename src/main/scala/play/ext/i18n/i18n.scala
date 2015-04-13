@@ -1,4 +1,6 @@
-package play.api
+package play.ext
+
+import play.api.{Logger, UnexpectedException}
 
 package object i18n {
 
