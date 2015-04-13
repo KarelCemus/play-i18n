@@ -15,7 +15,7 @@ crossScalaVersions := Seq( scalaVersion.value, "2.10.4" )
 
 libraryDependencies ++= Seq(
   // play framework cache API
-  "com.typesafe.play" %% "play-cache" % "2.3.8" % "provided",
+  "com.typesafe.play" %% "play" % "2.3.8" % "provided",
   // YAML parser, Java library
   "org.yaml" % "snakeyaml" % "1.15",
   // test framework

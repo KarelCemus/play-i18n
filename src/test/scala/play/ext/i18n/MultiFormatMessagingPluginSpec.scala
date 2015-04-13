@@ -1,9 +1,11 @@
-package play.api.i18n
+package play.ext.i18n
+
+import play.api.Play
+import play.api.i18n.Messages
+import play.api.test._
 
 import org.specs2.mutable.Specification
 import org.specs2.specification._
-import play.api.Play
-import play.api.test._
 
 class MultiFormatMessagingPluginSpec extends Specification with BeforeAfterAll with Scope {
 

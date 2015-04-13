@@ -1,9 +1,9 @@
-package play.api.i18n
+package play.ext.i18n
 
 import play.api.PlayException
-
 import play.api.i18n.Messages.MessageSource
-import play.api.i18n.loaders._
+
+import play.ext.i18n.loaders.{PropertyFileLoader, YamlFileLoader}
 
 trait MessagesLoader {
 

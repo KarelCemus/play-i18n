@@ -1,10 +1,10 @@
-package play.api.i18n.loaders
+package play.ext.i18n.loaders
 
 import play.api.PlayException
 import play.api.PlayException.ExceptionSource
-
 import play.api.i18n.Messages.MessageSource
-import play.api.i18n.MessagesLoader
+
+import play.ext.i18n.MessagesLoader
 
 import org.yaml.snakeyaml.constructor.Constructor
 import org.yaml.snakeyaml.nodes.Tag
