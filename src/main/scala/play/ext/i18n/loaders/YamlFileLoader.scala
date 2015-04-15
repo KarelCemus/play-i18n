@@ -30,8 +30,8 @@ class YamlFileLoader extends MessagesLoader {
       val yaml = new Yaml(new Constructor(), new Representer(), new DumperOptions(), new CustomResolver())
       // load data as a hierarchical map
       val data = yaml.loadAs(messageSource.read, classOf[JavaMap])
-      // flatten the map
-      Right(flatten(data))
+      val map = if (data == null) Map.empty[String, String] else flatten(data) // flatten the map
+      Right(map)
     } catch {
       case exception: ScannerException =>
         // parsing failed, transform an error
