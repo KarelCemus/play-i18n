@@ -45,5 +45,18 @@ class MultiFormatMessagingPluginSpec extends Specification with BeforeAfterAll w
       Messages( "a.e.a" ) mustEqual "An example"
       Messages( "a.g.a" ) mustEqual "An example"
     }
+
+    "read multiple files with different names" in {
+      // in 'messages' file
+      Messages( "a.e.a" ) mustEqual "An example"
+      // in 'test' file
+      Messages( "a.b.f" ) mustEqual "Example from 'test' file"
+    }
+
+    "collision resolving" in {
+      // Messages( "collision" ) mustEqual "Unknown result! It is non-deterministic."
+      // warning log is expected
+      true mustEqual true
+    }
   }
 }
