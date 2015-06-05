@@ -1,5 +1,7 @@
 package play.ext.i18n
 
+import scala.collection.JavaConversions._
+
 import play.api.Application
 import play.api.i18n.Lang
 import play.api.i18n.Messages.UrlMessageSource
@@ -31,19 +33,27 @@ protected[ i18n ] object MessageFile {
   /** messages path */
   def messagesPrefix( implicit app: Application ) = app.configuration.getString( "messages.path" )
 
+  def fileNames( implicit app: Application ) = app.configuration.getStringList( "i18n.files" ).getOrElse {
+    throw new IllegalArgumentException( "'i18n.files' is missing" )
+  }.toList
+
   /** constructs resource path */
   def joinPaths( prefix: Option[ String ], second: String ) = prefix match {
     case Some( first ) => new java.io.File( first, second ).getPath
     case None => second
   }
 
-  def apply( languages: Traversable[ Lang ], format: Format )( implicit app: Application ): Traversable[ MessageFile ] = languages.map( apply( _, format ) )
+  def apply( languages: Traversable[ Lang ], format: Format )( implicit app: Application ): Traversable[ MessageFile ] =
+    fileNames.map( name => languages.map( apply( _, format, name ) ) ).reduce( _ ++ _ )
 
-  def apply( lang: Lang, format: Format )( implicit app: Application ): MessageFile =
-    new MessageFile( lang.code, s"messages${format.toSuffix}.${lang.code}", format.loader )
+  def apply( lang: Lang, format: Format, name: String )( implicit app: Application ): MessageFile =
+    new MessageFile( lang.code, s"$name${format.toSuffix}.${lang.code}", format.loader )
 
-  def apply( format: Format )( implicit app: Application ): Traversable[ MessageFile ] = Traversable(
-    MessageFile( "default", s"messages${format.toSuffix}", format.loader ),
-    MessageFile( "default.play", s"messages${format.toSuffix}.default", format.loader )
-  )
+  def apply( format: Format )( implicit app: Application ): Traversable[ MessageFile ] =
+    fileNames.map{ name =>
+      Traversable(
+        MessageFile( "default", s"$name${format.toSuffix}", format.loader ),
+        MessageFile( "default.play", s"$name${format.toSuffix}.default", format.loader )
+      )
+    }.reduce( _ ++ _ )
 }

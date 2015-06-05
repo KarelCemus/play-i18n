@@ -27,8 +27,13 @@ class MultiFormatMessagingPlugin(app: Application) extends DefaultMessagesPlugin
     allFiles.map { file =>
       file.key -> file.load
     }.foldLeft(Map.empty[String, Map[String, String]]) {
-      case (merged, (key, data)) if merged.contains(key) =>
-        merged + (key -> data.++(merged(key)))
+      case (merged, (lang, data)) if merged.contains(lang) =>
+        // detect collisions and log them
+        data.keys.foreach { key =>
+          if ( merged( lang ).contains( key ) )
+            log.warn( s"Localization key '$key' is defined in multiple files for language '$lang'." )
+        }
+        merged + (lang -> data.++(merged(lang)))
       case (merged, (key, data)) =>
         merged + (key -> data)
     }
