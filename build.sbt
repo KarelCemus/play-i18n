@@ -9,19 +9,19 @@ description := "Messaging localization plugin for the Play framework 2"
 
 organization := "com.github.karelcemus"
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
-crossScalaVersions := Seq( scalaVersion.value, "2.10.4" )
+crossScalaVersions := Seq( scalaVersion.value )
 
 libraryDependencies ++= Seq(
   // play framework cache API
-  "com.typesafe.play" %% "play" % "2.3.8" % "provided",
+  "com.typesafe.play" %% "play" % "2.4.6" % "provided",
   // YAML parser, Java library
   "org.yaml" % "snakeyaml" % "1.15",
   // test framework
   "org.specs2" %% "specs2-core" % "3.4" % "test",
   // test module for play framework
-  "com.typesafe.play" %% "play-test" % "2.3.8" % "test"
+  "com.typesafe.play" %% "play-test" % "2.4.6" % "test"
 )
 
 resolvers ++= Seq(
@@ -29,7 +29,7 @@ resolvers ++= Seq(
   "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 )
 
-javacOptions ++= Seq( "-source", "1.6", "-target", "1.6", "-Xlint:unchecked", "-encoding", "UTF-8" )
+javacOptions ++= Seq( "-source", "1.8", "-target", "1.8", "-Xlint:unchecked", "-encoding", "UTF-8" )
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-Yrangepos" )
 
