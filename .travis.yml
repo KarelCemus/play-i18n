@@ -1,0 +1,19 @@
+language: scala
+jdk:
+- oraclejdk8
+scala:
+- 2.11.7
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - $HOME/.ivy2/cache
+env:
+  global:
+  - secure: cKAh549EmVROXviynjVf9epC9SYx8zn4WOU/FAPlDxSah8VmXBrOmHaZmvK7vu5eaOjUj0urHFggQ+lkaRKHs1RSvusx35MO9LIJBt7Nemb+1j8nNddZAN4ck54tGc2JsazLWnfwDC/DCbqrXBrtZcCAkfQbtiJvipqVabXEyPdGIKTnF5RjDengfRW7qz78oGX/pqVp/AJbTzsLJoAWCPrMa6X48NM68ksw9bmoy2+L9/4FGtwyUApmDqj+Zph6OqCP6bU/AfCR3YDxHd5Ea5rwrszDrilsYDNrPIXyY1NeKgRVpvMxoe4cSONnr4f1ScW/WV3bzusFeMJPci7nvqpNCfjDB9nDDmcmL+PdYPEzuu03aUqMAp7T4Szg6m4q9WzXsZ17IhrE+uq9kAM6hxeDuNBeczkOEwsgfZpcDvHlN65XXGXpUvZX69mzXoFMkYeHISpr2Vw8gLKw3sF14KFg1JPO2uIHOLrM9FaDsvUCgmg/Er7rRZkEDQUXF8UT4JUt6P6OneYTMfnF9VorENCR7o1K1EyCjTHeOIZ3zh5jCLzBIpXeR4e/HY15dpwDArXErjmWoR2f+OpjkgUr4gOw/JODU4OfRRGn8ptJFq+fRw58eXHvp9D+GPvRaDKYKht4Y5sb6R96mCkxv7Cg5B1dzJLNsVBecVgMOZ2Hrk8=
+  - secure: kHtHIFpZw8snrvs9SW4jl/wgd4YF2/DIJ0W9ueGdwzEWDcTnFK+8AVxYT0Ee5hfYDprna4lWKNClERWJKw5eSfCPQpoGbbULdz5f0b6/sVEAKmGCVAGPwkfkS0pRoOIaIT04rrK2I725VGx1JLo8JWSkLCWy/DmGzhBdp1tGONoFVsADlSvLSoG1zh+qey5p4kdFZT5O3t8tUo1OTQIoi3dXuIJVUuAML3a4BW/brM6LKizNxdMuytnWLSavEMAFggQHvodV+TIxVjXy8XXLPcpEi+KU6g5CPr+IVkW/xvjRsgQt933NaLZKMDJXCvhBiL5h8MuXg+rJnzsLPXPKzHwVFNquxBphm3fFNqBZReKb0fcgaOBG5wyRlasp6JqTPXH0j+pWNpXfpwg5OynKoDeJmgb4mmfK11HzNFuTL7YgIlU8OtDQPYR2xOvZ9LxBam1a9G0j1aJ98eERuJBBzR1bXlbidjKLZuJX7hKo9isqEuHdZKOefuDaH0QORiLJzsqt23Omy8cIN/QWu9Vsfq8zEMxsLPYRS2FRF7GfqGs5Xy0E0kqSIAoXKMb5i/CZ3ni7Hw3UapTkDx7SCVG/Oxybh6AwhAaZp/UjFOGcYIqyxmISz1d8Aad+qeCHv4GKl0q3MwGvCPNyirRVecs2TPsS0UA3SlcAW3MetrcxmtY=
+before_script:
+- ! '[[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == false ]] && SBT_CMD="+compile +test +publish" || SBT_CMD="+test"'
+script:
+- sbt $SBT_CMD
