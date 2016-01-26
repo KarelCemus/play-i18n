@@ -1,60 +1,57 @@
 package play.ext.i18n
 
-import play.api.Play
-import play.api.i18n.Messages
+import play.api.i18n.MessagesApi
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test._
 
-import org.specs2.mutable.Specification
-import org.specs2.specification._
+class MultiFormatMessagingPluginSpec extends PlaySpecification {
 
-class MultiFormatMessagingPluginSpec extends Specification with BeforeAfterAll with Scope {
+  val injector = new GuiceApplicationBuilder().injector
 
-  override def beforeAll( ): Unit = Play.start( FakeApplication( ) )
+  val messages = injector.instanceOf[MessagesApi]
 
-  override def afterAll( ): Unit = Play.stop( )
+  implicit val default = play.api.i18n.Lang("fr")
 
-  implicit val default = play.api.i18n.Lang( "fr" )
+  val cs = play.api.i18n.Lang("cs")
 
-  val cs = play.api.i18n.Lang( "cs" )
-
-  val en = play.api.i18n.Lang( "en" )
+  val en = play.api.i18n.Lang("en")
 
   "Plugin" should {
 
     "read property files" in {
-      Messages( "a.b.c", 1, 2, 3 )( default ) mustEqual "a=1 b=2 c=3"
-      Messages( "a.b.c", 1, 2, 3 )( cs ) mustEqual "a=1 b=2 c=3 in cs"
-      Messages( "a.b.c", 1, 2, 3 )( en ) mustEqual "a=1 b=2 c=3 in en"
+      messages("a.b.c", 1, 2, 3)(default) mustEqual "a=1 b=2 c=3"
+      messages("a.b.c", 1, 2, 3)(cs) mustEqual "a=1 b=2 c=3 in cs"
+      messages("a.b.c", 1, 2, 3)(en) mustEqual "a=1 b=2 c=3 in en"
     }
 
     "read YAML files" in {
-      Messages( "a.b.d", 1, 2, 3 )( default ) mustEqual "a=1 b=2 c=3"
-      Messages( "a.b.d", 1, 2, 3 )( cs ) mustEqual "a=1 b=2 c=3 in cs"
-      Messages( "a.b.d", 1, 2, 3 )( en ) mustEqual "a=1 b=2 c=3 in en"
+      messages("a.b.d", 1, 2, 3)(default) mustEqual "a=1 b=2 c=3"
+      messages("a.b.d", 1, 2, 3)(cs) mustEqual "a=1 b=2 c=3 in cs"
+      messages("a.b.d", 1, 2, 3)(en) mustEqual "a=1 b=2 c=3 in en"
     }
 
     "implement advanced YAML features: hierarchy" in {
-      Messages( "a.x" ) mustEqual "This is an example"
+      messages("a.x") mustEqual "This is an example"
     }
 
     "implement advanced YAML features: multi-line strings" in {
-      Messages( "a.f" ) mustEqual "This\nis\nan\nexample"
+      messages("a.f") mustEqual "This\nis\nan\nexample"
     }
 
     "implement advanced YAML features: references" in {
-      Messages( "a.e.a" ) mustEqual "An example"
-      Messages( "a.g.a" ) mustEqual "An example"
+      messages("a.e.a") mustEqual "An example"
+      messages("a.g.a") mustEqual "An example"
     }
 
     "read multiple files with different names" in {
       // in 'messages' file
-      Messages( "a.e.a" ) mustEqual "An example"
+      messages("a.e.a") mustEqual "An example"
       // in 'test' file
-      Messages( "a.b.f" ) mustEqual "Example from 'test' file"
+      messages("a.b.f") mustEqual "Example from 'test' file"
     }
 
     "collision resolving" in {
-      // Messages( "collision" ) mustEqual "Unknown result! It is non-deterministic."
+      // messages( "collision" ) mustEqual "Unknown result! It is non-deterministic."
       // warning log is expected
       true mustEqual true
     }

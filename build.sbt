@@ -19,9 +19,10 @@ libraryDependencies ++= Seq(
   // YAML parser, Java library
   "org.yaml" % "snakeyaml" % "1.15",
   // test framework
-  "org.specs2" %% "specs2-core" % "3.4" % "test",
+  "org.specs2" %% "specs2-core" % "3.7" % "test",
   // test module for play framework
-  "com.typesafe.play" %% "play-test" % "2.4.6" % "test"
+  "com.typesafe.play" %% "play-test" % "2.4.6" % "test",
+  "com.typesafe.play" %% "play-specs2" % "2.4.6" % "test"
 )
 
 resolvers ++= Seq(
