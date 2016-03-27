@@ -9,20 +9,22 @@ description := "Messaging localization plugin for the Play framework 2"
 
 organization := "com.github.karelcemus"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
 crossScalaVersions := Seq( scalaVersion.value )
 
+val playVersion = "2.5.0"
+
 libraryDependencies ++= Seq(
   // play framework cache API
-  "com.typesafe.play" %% "play" % "2.4.6" % "provided",
+  "com.typesafe.play" %% "play" % playVersion % "provided",
   // YAML parser, Java library
-  "org.yaml" % "snakeyaml" % "1.15",
+  "org.yaml" % "snakeyaml" % "1.17",
   // test framework
-  "org.specs2" %% "specs2-core" % "3.7" % "test",
+  "org.specs2" %% "specs2-core" % "3.7.2" % "test",
   // test module for play framework
-  "com.typesafe.play" %% "play-test" % "2.4.6" % "test",
-  "com.typesafe.play" %% "play-specs2" % "2.4.6" % "test"
+  "com.typesafe.play" %% "play-test" % playVersion % "test",
+  "com.typesafe.play" %% "play-specs2" % playVersion % "test"
 )
 
 resolvers ++= Seq(

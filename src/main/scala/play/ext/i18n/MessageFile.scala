@@ -31,7 +31,7 @@ protected[i18n] case class MessageFile(key: String, name: String, loader: Messag
 protected[i18n] object MessageFile {
 
   /** messages path */
-  private def messagesPrefix(implicit configuration: Configuration) = PlayConfig(configuration).getOptional[String]("play.i18n.path")
+  private def messagesPrefix(implicit configuration: Configuration) = PlayConfig(configuration).get[Option[String]]("play.i18n.path")
 
   private def fileNames(implicit configuration: Configuration) = configuration.getStringList("play.i18n.files").getOrElse {
     throw new IllegalArgumentException("'play.i18n.files' is missing")
