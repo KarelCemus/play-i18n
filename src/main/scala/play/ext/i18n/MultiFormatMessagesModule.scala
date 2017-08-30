@@ -12,44 +12,45 @@ import play.ext.i18n.MessagesLoaders._
   *
   * @author Karel Cemus
   */
-class MultiFormatMessagesApi @Inject()(implicit environment: Environment, configuration: Configuration, langs: Langs) extends DefaultMessagesApi(environment, configuration, langs) {
+class MultiFormatMessagesApi @Inject()(implicit environment: Environment, configuration: Configuration, langs: Langs) extends DefaultMessagesApi(messages = {
 
-  /** loads all messages */
-  override val messages =
-    allFiles.map { file =>
-      file.key -> file.load
-    }.foldLeft(Map.empty[String, Map[String, String]]) {
-      case (merged, (lang, data)) if merged.contains(lang) =>
-        // detect collisions and log them
-        data.keys.foreach { key =>
-          if (merged(lang).contains(key))
-            log.warn(s"Localization key '$key' is defined in multiple files for language '$lang'.")
-        }
-        merged + (lang -> data.++(merged(lang)))
-      case (merged, (key, data)) =>
-        merged + (key -> data)
-    }
+  implicit val config = configuration
+  implicit val env    = environment
 
   /** all files regardless the format */
-  protected def allFiles = enabledFormats.flatMap(format => MessageFile(format) ++ MessageFile(langs.availables, format))
+  def allFiles: List[MessageFile] = enabledFormats.flatMap(format => MessageFile(format) ++ MessageFile(langs.availables, format))
 
   /** enabled loaders, disabled are dropped */
-  protected def enabledFormats = configuration.getConfig("play.i18n.formats").map { implicit config =>
-    supportedFormats.filter(_.isEnabled(config))
-  }.getOrElse(List.empty)
+  def enabledFormats: List[Format] = supportedFormats.filter(_.isEnabled(configuration.get[Configuration]("play.i18n.formats")))
 
   /** map of supported loaders, mapping format name -> format loader */
-  protected def supportedFormats = List(
+  def supportedFormats = List(
     Format("properties", None, PropertyFileLoader),
     Format("yaml", Some("yaml"), YamlFileLoader)
   )
-}
+
+  allFiles.map { file =>
+    file.key -> file.load
+  }.foldLeft(Map.empty[String, Map[String, String]]) {
+    case (merged, (lang, data)) if merged.contains(lang) =>
+      // detect collisions and log them
+      data.keys.foreach { key =>
+        if (merged(lang).contains(key))
+          log.warn(s"Localization key '$key' is defined in multiple files for language '$lang'.")
+      }
+      merged + (lang -> data.++(merged(lang)))
+    case (merged, (key, data)) =>
+      merged + (key -> data)
+  }
+})
 
 class MultiFormatMessagesModule extends Module {
   def bindings(environment: Environment, configuration: Configuration) = {
     Seq(
-      bind[Langs].to[DefaultLangs],
-      bind[MessagesApi].to[MultiFormatMessagesApi]
+      bind[Langs].toProvider[DefaultLangsProvider],
+      bind[MessagesApi].to[MultiFormatMessagesApi],
+      bind[play.i18n.MessagesApi].toSelf,
+      bind[play.i18n.Langs].toSelf
     )
   }
 }

@@ -1,15 +1,13 @@
 package play.ext.i18n
 
-import scala.collection.JavaConversions._
-
 import play.api._
-import play.api.i18n.Lang
-import play.api.i18n.Messages.UrlMessageSource
-import play.utils.Resources
 
 protected[i18n] case class MessageFile(key: String, name: String, loader: MessagesLoader)(implicit configuration: Configuration, env: Environment) {
 
   import scala.collection.JavaConverters._
+
+  import play.api.i18n.Messages.UrlMessageSource
+  import play.utils.Resources
 
   import MessageFile._
 
@@ -30,12 +28,13 @@ protected[i18n] case class MessageFile(key: String, name: String, loader: Messag
 
 protected[i18n] object MessageFile {
 
-  /** messages path */
-  private def messagesPrefix(implicit configuration: Configuration) = PlayConfig(configuration).get[Option[String]]("play.i18n.path")
+  import play.api.i18n.Lang
 
-  private def fileNames(implicit configuration: Configuration) = configuration.getStringList("play.i18n.files").getOrElse {
-    throw new IllegalArgumentException("'play.i18n.files' is missing")
-  }.toList
+  /** messages path */
+  private def messagesPrefix(implicit configuration: Configuration) =
+    if (configuration.has("play.i18n.path")) configuration.getOptional[String]("play.i18n.path") else None
+
+  private def fileNames(implicit configuration: Configuration) = configuration.get[Seq[String]]( "play.i18n.files")
 
   /** constructs resource path */
   private def joinPaths(prefix: Option[String], second: String) = prefix match {
