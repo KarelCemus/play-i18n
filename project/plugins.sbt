@@ -1,8 +1,8 @@
 // library release
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.5")
+addSbtPlugin( "com.github.gseitz" % "sbt-release" % "1.0.6" )
 
 // PGP signature
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "1.0.0")
+addSbtPlugin( "com.jsuereth" % "sbt-pgp" % "1.1.0" )
 
-// updates detector
-addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.10")
+// checks for updates
+addSbtPlugin( "com.timushev.sbt" % "sbt-updates" % "0.3.1" )

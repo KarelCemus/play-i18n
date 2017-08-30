@@ -39,7 +39,7 @@ class YamlFileLoader extends MessagesLoader {
         Left(error)
     }
 
-  private def flatten(data: JavaMap): Map[String, String] = data.asScala.map {
+  private def flatten(data: JavaMap): Map[String, String] = data.asScala.collect {
     // inner node
     case (prefix: String, map: JavaMap) => flatten(map).map {
       case (suffix, value) => s"$prefix.$suffix" -> value
