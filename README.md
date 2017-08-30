@@ -1,6 +1,6 @@
 <h1 align="center">Multi-format Messaging module<br/> for Play framework</h1>
 
-**Note: This version supports Play framework 2.5.x. For compatiblity with previous versions see previous releases.**
+**Note: This version supports Play framework 2.6.x. For compatiblity with previous versions see previous releases.**
 
 [Play framework 2](http://playframework.com/) is delivered with default Messaging module using property
 files. The syntax is not much convenient as involves a lot of repetition, thus this module delivers
@@ -15,7 +15,7 @@ To your SBT `build.sbt` add the following lines:
 ```scala
 libraryDependencies ++= Seq(
   // YAML localization module
-  "com.github.karelcemus" %% "play-i18n" % "0.5"
+  "com.github.karelcemus" %% "play-i18n" % "1.0.0"
 )
 ```
 
