@@ -28,6 +28,8 @@ class MultiFormatMessagingPluginSpec extends PlaySpecification {
       messages("a.b.d", 1, 2, 3)(default) mustEqual "a=1 b=2 c=3"
       messages("a.b.d", 1, 2, 3)(cs) mustEqual "a=1 b=2 c=3 in cs"
       messages("a.b.d", 1, 2, 3)(en) mustEqual "a=1 b=2 c=3 in en"
+      messages("e")(en) mustEqual "something in english"
+      messages("e")(cs) mustEqual "something in czech"
     }
 
     "implement advanced YAML features: hierarchy" in {
