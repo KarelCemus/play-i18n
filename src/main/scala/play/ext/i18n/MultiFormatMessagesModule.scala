@@ -1,6 +1,6 @@
 package play.ext.i18n
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 
 import play.api.i18n._
 import play.api.inject.Module
@@ -12,6 +12,7 @@ import play.ext.i18n.MessagesLoaders._
   *
   * @author Karel Cemus
   */
+@Singleton
 class MultiFormatMessagesApi @Inject()(implicit environment: Environment, configuration: Configuration, langs: Langs) extends DefaultMessagesApi(messages = {
 
   implicit val config = configuration
@@ -42,7 +43,7 @@ class MultiFormatMessagesApi @Inject()(implicit environment: Environment, config
     case (merged, (key, data)) =>
       merged + (key -> data)
   }
-})
+}, langs = langs)
 
 class MultiFormatMessagesModule extends Module {
   def bindings(environment: Environment, configuration: Configuration) = {
