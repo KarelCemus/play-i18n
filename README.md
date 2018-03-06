@@ -19,6 +19,12 @@ libraryDependencies ++= Seq(
 )
 ```
 
+And add the following line into your configuration to disable the original Play's implementation:
+
+```hocon
+play.modules.disabled += "play.api.i18n.I18nModule"
+```
+
 ## How to use the this localization module
 
 The end-user API remains same. The module is smoothly connected to the current `I18n` which delivers `MessagesApi`
