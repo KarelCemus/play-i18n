@@ -21,6 +21,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play" % playVersion % "provided",
   // YAML parser, Java library
   "org.yaml" % "snakeyaml" % "1.19",
+  // ICU4J message format support
+  "com.ibm.icu" % "icu4j" % "62.1",
   // test framework
   "org.specs2" %% "specs2-core" % specs2Version % "test",
   // test module for play framework

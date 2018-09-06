@@ -57,5 +57,16 @@ class MultiFormatMessagingPluginSpec extends PlaySpecification {
       // warning log is expected
       true mustEqual true
     }
+
+    "properly parse ICU message format in property and YAML files" in {
+      val icuInjector = new GuiceApplicationBuilder().configure(Map("play.i18n.useICUMessageFormat" -> true)).build().injector
+      val icuMessages = icuInjector.instanceOf[MessagesApi]
+      val date = new java.util.Date(0)
+
+      icuMessages("p.icu", Map("gender" -> "female", "num_guests" -> 2, "host" -> "TheHost", "guest" -> "TheGuest", "d" -> date))(en) mustEqual "TheHost invites TheGuest and one other person to her party on Thursday, January 1, 1970."
+      icuMessages("p.icu", Map("gender" -> "male", "num_guests" -> 3, "host" -> "TheHost", "guest" -> "TheGuest", "d" -> date))(en) mustEqual "TheHost invites TheGuest and 2 other people to his party on Thursday, January 1, 1970."
+      icuMessages("y.icu", Map("gender" -> "female", "num_guests" -> 2, "host" -> "TheHost", "guest" -> "TheGuest", "d" -> date))(en) mustEqual "TheHost invites TheGuest and one other person to her party on Thursday, January 1, 1970."
+      icuMessages("y.icu", Map("gender" -> "male", "num_guests" -> 3, "host" -> "TheHost", "guest" -> "TheGuest", "d" -> date))(en) mustEqual "TheHost invites TheGuest and 2 other people to his party on Thursday, January 1, 1970."
+    }
   }
 }

@@ -1,2 +1,18 @@
 a.b.c = a={0} b={1} c={2}
 collision = Collision in file ''messages''
+p.icu = {gender,select,\
+   female {{num_guests,plural,offset:1 \
+     =0{{host} does not give a party.} \
+     =1{{host} invites {guest} to her party on {d,date,full}.} \
+     =2{{host} invites {guest} and one other person to her party on {d,date,full}.} \
+     other{{host} invites {guest} and # other people to her party on {d,date,full}.}}}\
+   male {{num_guests, plural, offset:1 \
+     =0 {{host} does not give a party.} \
+     =1 {{host} invites {guest} to his party on {d,date,full}.} \
+     =2 {{host} invites {guest} and one other person to his party on {d,date,full}.} \
+     other {{host} invites {guest} and # other people to his party on {d,date,full}.}}}\
+  other {{num_guests, plural, offset:1  \
+      =0 {{host} does not give a party.} \
+      =1 {{host} invites {guest} to their party on {d,date,full}.} \
+      =2 {{host} invites {guest} and one other person to their party on {d,date,full}.} \
+      other {{host} invites {guest} and # other people to their party on {d,date,full}.}}}}
