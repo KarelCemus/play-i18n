@@ -69,15 +69,24 @@ For full list of features see [Wikipedia](http://en.wikipedia.org/wiki/YAML#Exam
 **Note:**
 Although YAML supports data types, the module ignores them to preserve the compatibility with the MessagingAPI. 
 
+**Support for ICU message format**
+
+You can switch between the default JDK MessageFormat implementation and the implementation provided by the [ICU Project](http://icu-project.org).
+
+To enable ICU's implementation just set the configuration option `play.i18n.useICUMessageFormat` to `true`.
+
+See `MultiFormatMessagingPluginSpec` for an example how to use the advanced formatting options of the ICU project.
+
 ## Configuration
 
 There is already default configuration but it can be overwritten in your `conf/application.conf` file.
 
-| Key                           | Type   | Default                       | Description                         |
-|-------------------------------|-------:|------------------------------:|-------------------------------------|
-| play.i18n.path                | String | empty                         | Prefix of messages files            |
-| play.i18n.formats.properties  | Boolean| true                          | Enables the format                  |
-| play.i18n.formats.yaml        | Boolean| true                          | Enables the format                  |
+| Key                           | Type   | Default                       | Description                                |
+|-------------------------------|-------:|------------------------------:|--------------------------------------------|
+| play.i18n.path                | String | empty                         | Prefix of messages files                   |
+| play.i18n.formats.properties  | Boolean| true                          | Enables the format                         |
+| play.i18n.formats.yaml        | Boolean| true                          | Enables the format                         |
+| play.i18n.useICUMessageFormat | Boolean| false                         | Enables the support for ICU message format |
 
 
 ## Worth knowing to avoid surprises

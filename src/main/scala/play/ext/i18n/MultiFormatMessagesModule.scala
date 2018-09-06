@@ -1,12 +1,15 @@
 package play.ext.i18n
 
+import com.ibm.icu.text.MessageFormat
 import javax.inject.{Inject, Singleton}
+
+import collection.JavaConverters._
 
 import play.api.i18n._
 import play.api.inject.Module
 import play.api.{Configuration, Environment}
-
 import play.ext.i18n.MessagesLoaders._
+
 
 /** Messaging plugin for parsing files in various different formats
   *
@@ -43,7 +46,29 @@ class MultiFormatMessagesApi @Inject()(implicit environment: Environment, config
     case (merged, (key, data)) =>
       merged + (key -> data)
   }
-}, langs = langs)
+}, langs = langs) {
+
+  private val useICUMessageFormat = configuration.get[Boolean]("play.i18n.useICUMessageFormat")
+
+  override def translate(key: String, args: Seq[Any])(implicit lang: Lang): Option[String] = {
+    if (useICUMessageFormat) {
+      val codesToTry = Seq(lang.code, lang.language, "default", "default.play")
+      val pattern: Option[String] =
+        codesToTry.foldLeft[Option[String]](None)((res, lang) =>
+          res.orElse(messages.get(lang).flatMap(_.get(key))))
+      pattern.map(pattern => {
+        val mf = new MessageFormat(pattern, lang.toLocale)
+        if (args.length == 1 && args(0).isInstanceOf[Map[_, _]]) {
+          mf.format(args(0).asInstanceOf[Map[String, Any]].asJava)
+        } else {
+          mf.format(args.map(_.asInstanceOf[java.lang.Object]).toArray)
+        }
+      })
+    } else {
+      super.translate(key, args)
+    }
+  }
+}
 
 class MultiFormatMessagesModule extends Module {
   def bindings(environment: Environment, configuration: Configuration) = {
