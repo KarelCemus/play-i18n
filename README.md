@@ -15,7 +15,7 @@ To your SBT `build.sbt` add the following lines:
 ```scala
 libraryDependencies ++= Seq(
   // YAML localization module
-  "com.github.karelcemus" %% "play-i18n" % "1.1.2"
+  "com.github.karelcemus" %% "play-i18n" % "1.2.0"
 )
 ```
 
