@@ -45,10 +45,11 @@ protected[i18n] object MessageFile {
   def apply(languages: Traversable[Lang], format: Format)(implicit configuration: Configuration, env: Environment): Traversable[MessageFile] =
     fileNames.map(name => languages.flatMap(apply(_, format, name))).reduce(_ ++ _)
 
-  def apply(lang: Lang, format: Format, name: String)(implicit configuration: Configuration, env: Environment): List[ MessageFile ] = List(
-    new MessageFile(lang.code, s"$name${format.toSuffix}.${lang.code}", format.loader),
-    new MessageFile(lang.code, s"$name.${lang.code}${format.toSuffix}", format.loader)
-  )
+  def apply(lang: Lang, format: Format, name: String)(implicit configuration: Configuration, env: Environment): Iterable[MessageFile] = {
+    Set(s"$name${format.toSuffix}.${lang.code}", s"$name.${lang.code}${format.toSuffix}").map(
+      new MessageFile(lang.code, _, format.loader)
+    )
+  }
 
   def apply(format: Format)(implicit configuration: Configuration, env: Environment): Traversable[MessageFile] =
     fileNames.map { name =>
