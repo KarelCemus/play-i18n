@@ -8,19 +8,19 @@ description := "Messaging localization plugin for the Play framework 2"
 
 organization := "com.github.karelcemus"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.8"
 
 crossScalaVersions := Seq( scalaVersion.value, "2.11.12" )
 
-val playVersion = "2.6.10"
+val playVersion = "2.7.0"
 
-val specs2Version = "4.0.2"
+val specs2Version = "4.4.1"
 
 libraryDependencies ++= Seq(
   // play framework cache API
   "com.typesafe.play" %% "play" % playVersion % "provided",
   // YAML parser, Java library
-  "org.yaml" % "snakeyaml" % "1.19",
+  "org.yaml" % "snakeyaml" % "1.24",
   // test framework
   "org.specs2" %% "specs2-core" % specs2Version % "test",
   // test module for play framework
