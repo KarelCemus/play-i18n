@@ -12,7 +12,7 @@ scalaVersion := "2.12.8"
 
 crossScalaVersions := Seq( scalaVersion.value, "2.11.12" )
 
-val playVersion = "2.6.10"
+val playVersion = "2.7.0"
 
 val specs2Version = "4.4.1"
 
