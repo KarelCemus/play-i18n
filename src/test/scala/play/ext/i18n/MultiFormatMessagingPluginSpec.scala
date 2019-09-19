@@ -37,7 +37,12 @@ class MultiFormatMessagingPluginSpec extends PlaySpecification {
     }
 
     "implement advanced YAML features: multi-line strings" in {
-      messages("a.f") mustEqual "This\nis\nan\nexample"
+      // When using the vertical bar "|", the default behavior is "clipping", where the final line break is preserved.
+      // When using "|-", trailing line breaks are stripped. When using "|+", trailing line breaks are kept.
+      // https://yaml.org/spec/1.2/spec.html#id2794534
+      messages("a.multi-line.clip") mustEqual "This\nis\nan\nexample\n"
+      messages("a.multi-line.strip") mustEqual "This\nis\nan\nexample"
+      messages("a.multi-line.keep") mustEqual "This\nis\nan\nexample\n\n"
     }
 
     "implement advanced YAML features: references" in {
@@ -56,6 +61,11 @@ class MultiFormatMessagingPluginSpec extends PlaySpecification {
       // messages( "collision" ) mustEqual "Unknown result! It is non-deterministic."
       // warning log is expected
       true mustEqual true
+    }
+
+    "preserve spaces within quotes" in {
+      messages("spaces.unquoted") mustEqual "should be trimmed"
+      messages("spaces.quoted") mustEqual " should not be trimmed "
     }
   }
 }

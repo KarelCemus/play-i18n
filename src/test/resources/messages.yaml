@@ -1,11 +1,27 @@
 a:
   b.d: a={0} b={1} c={2}
   x: This is an example
-  f: |
-     This
-     is
-     an
-     example
+  multi-line:
+    clip: |
+          This
+          is
+          an
+          example
+    strip: |-
+           This
+           is
+           an
+           example
+
+    keep: |+
+          This
+          is
+          an
+          example
+
   e: &idA
     a: An example
   g: *idA
+spaces:
+  unquoted:  should be trimmed # comment so that IDEs don't trim the trailing space
+  quoted: " should not be trimmed "
