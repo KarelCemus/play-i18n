@@ -1,4 +1,4 @@
-import com.typesafe.sbt.pgp.PgpKeys
+import com.jsuereth.sbtpgp.PgpKeys
 import sbt.Keys._
 import sbt._
 
@@ -8,19 +8,19 @@ description := "Messaging localization plugin for the Play framework 2"
 
 organization := "com.github.karelcemus"
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.13.1"
 
-crossScalaVersions := Seq( scalaVersion.value, "2.11.12" )
+crossScalaVersions := Seq( scalaVersion.value, "2.12.10", "2.11.12" )
 
-val playVersion = "2.7.0"
+val playVersion = "2.7.3"
 
-val specs2Version = "4.4.1"
+val specs2Version = "4.7.1"
 
 libraryDependencies ++= Seq(
   // play framework cache API
   "com.typesafe.play" %% "play" % playVersion % "provided",
   // YAML parser, Java library
-  "org.yaml" % "snakeyaml" % "1.24",
+  "org.yaml" % "snakeyaml" % "1.25",
   // test framework
   "org.specs2" %% "specs2-core" % specs2Version % "test",
   // test module for play framework
@@ -28,7 +28,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-specs2" % playVersion % "test"
 )
 
-resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
+resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
 
 javacOptions ++= Seq( "-source", "1.8", "-target", "1.8", "-Xlint:unchecked", "-encoding", "UTF-8" )
 
@@ -36,7 +36,7 @@ scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-Yrangepos" )
 
 homepage := Some( url( "https://github.com/karelcemus/play-i18n" ) )
 
-licenses := Seq( "Apache 2" -> url( "http://www.apache.org/licenses/LICENSE-2.0" ) )
+licenses := Seq( "Apache 2" -> url( "https://www.apache.org/licenses/LICENSE-2.0" ) )
 
 publishMavenStyle := true
 
