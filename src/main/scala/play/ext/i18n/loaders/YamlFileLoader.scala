@@ -45,7 +45,7 @@ class YamlFileLoader extends MessagesLoader {
       case (suffix, value) => s"$prefix.$suffix" -> value
     }
     // leaf
-    case (key: String, value: String) => Map(key -> value.trim)
+    case (key: String, value: String) => Map(key -> value)
   }.fold(Map.empty)(_ ++ _)
 }
 
