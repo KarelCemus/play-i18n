@@ -42,7 +42,7 @@ protected[i18n] object MessageFile {
     case None => second
   }
 
-  def apply(languages: Traversable[Lang], format: Format)(implicit configuration: Configuration, env: Environment): Traversable[MessageFile] =
+  def apply(languages: Iterable[Lang], format: Format)(implicit configuration: Configuration, env: Environment): Iterable[MessageFile] =
     fileNames.map(name => languages.flatMap(apply(_, format, name))).reduce(_ ++ _)
 
   def apply(lang: Lang, format: Format, name: String)(implicit configuration: Configuration, env: Environment): Iterable[MessageFile] = {
@@ -51,9 +51,9 @@ protected[i18n] object MessageFile {
     )
   }
 
-  def apply(format: Format)(implicit configuration: Configuration, env: Environment): Traversable[MessageFile] =
+  def apply(format: Format)(implicit configuration: Configuration, env: Environment): Iterable[MessageFile] =
     fileNames.map { name =>
-      Traversable(
+      Iterable(
         MessageFile("default", s"$name${format.toSuffix}", format.loader),
         MessageFile("default.play", s"$name${format.toSuffix}.default", format.loader)
       )
