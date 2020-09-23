@@ -19,13 +19,14 @@ env:
   - secure: kHtHIFpZw8snrvs9SW4jl/wgd4YF2/DIJ0W9ueGdwzEWDcTnFK+8AVxYT0Ee5hfYDprna4lWKNClERWJKw5eSfCPQpoGbbULdz5f0b6/sVEAKmGCVAGPwkfkS0pRoOIaIT04rrK2I725VGx1JLo8JWSkLCWy/DmGzhBdp1tGONoFVsADlSvLSoG1zh+qey5p4kdFZT5O3t8tUo1OTQIoi3dXuIJVUuAML3a4BW/brM6LKizNxdMuytnWLSavEMAFggQHvodV+TIxVjXy8XXLPcpEi+KU6g5CPr+IVkW/xvjRsgQt933NaLZKMDJXCvhBiL5h8MuXg+rJnzsLPXPKzHwVFNquxBphm3fFNqBZReKb0fcgaOBG5wyRlasp6JqTPXH0j+pWNpXfpwg5OynKoDeJmgb4mmfK11HzNFuTL7YgIlU8OtDQPYR2xOvZ9LxBam1a9G0j1aJ98eERuJBBzR1bXlbidjKLZuJX7hKo9isqEuHdZKOefuDaH0QORiLJzsqt23Omy8cIN/QWu9Vsfq8zEMxsLPYRS2FRF7GfqGs5Xy0E0kqSIAoXKMb5i/CZ3ni7Hw3UapTkDx7SCVG/Oxybh6AwhAaZp/UjFOGcYIqyxmISz1d8Aad+qeCHv4GKl0q3MwGvCPNyirRVecs2TPsS0UA3SlcAW3MetrcxmtY=
   - COURSIER_CACHE="$HOME/.coursier"
   # set version of JDK
-  - TRAVIS_JDK=adopt@1.8.202-08
   - SCALA_VERSION=2.13.1
 
 before_install:
   - curl -Ls https://git.io/jabba | bash && . ~/.jabba/jabba.sh
 
 install:
+  - export TRAVIS_JDK=`jabba ls-remote|\grep 'adopt@1.8.' | sort|tail -n 1`
+  - echo "Will use java $TRAVIS_JDK"
   - jabba install "$TRAVIS_JDK" && jabba use "$TRAVIS_JDK" && java -Xmx32m -version
 
 before_script:

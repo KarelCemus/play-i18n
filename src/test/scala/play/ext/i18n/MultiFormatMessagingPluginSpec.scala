@@ -6,7 +6,7 @@ import play.api.test._
 
 class MultiFormatMessagingPluginSpec extends PlaySpecification {
 
-  val injector = new GuiceApplicationBuilder().injector
+  val injector = new GuiceApplicationBuilder().injector()
 
   val messages = injector.instanceOf[MessagesApi]
 
