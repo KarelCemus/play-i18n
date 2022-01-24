@@ -8,9 +8,9 @@ description := "Messaging localization plugin for the Play framework 2"
 
 organization := "com.github.karelcemus"
 
-scalaVersion := "2.13.3"
+scalaVersion := "2.12.12"
 
-crossScalaVersions := Seq( scalaVersion.value, "2.12.12" )
+crossScalaVersions := Seq( scalaVersion.value, "2.13.3" )
 
 val playVersion = "2.8.8"
 
