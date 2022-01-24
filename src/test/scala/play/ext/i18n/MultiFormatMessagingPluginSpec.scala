@@ -24,6 +24,11 @@ class MultiFormatMessagingPluginSpec extends PlaySpecification {
       messages("a.b.c", 1, 2, 3)(en) mustEqual "a=1 b=2 c=3 in en"
     }
 
+    "read JSON files" in {
+      messages("x.y.z", 1, 2, 3)(default) mustEqual "x=1 y=2 z=3"
+      messages("x.y.z", 1, 2, 3)(cs) mustEqual "x=1 y=2 z=3 in cs"
+    }
+
     "read YAML files" in {
       messages("a.b.d", 1, 2, 3)(default) mustEqual "a=1 b=2 c=3"
       messages("a.b.d", 1, 2, 3)(cs) mustEqual "a=1 b=2 c=3 in cs"
