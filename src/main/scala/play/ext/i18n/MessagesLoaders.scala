@@ -10,6 +10,13 @@ trait MessagesLoader {
   def apply(messageSource: MessageSource, messageSourceName: String): Either[PlayException.ExceptionSource, Map[String, String]]
 }
 
+trait MessageLoadersApi {
+  def allFiles: List[MessageFile]
+  def enabledFormats: List[Format]
+  def supportedFormats: List[Format]
+  def messages: Map[String, Map[String, String]]
+}
+
 trait MessagesLoaders {
 
   object PropertyFileLoader extends PropertyFileLoader
