@@ -34,6 +34,8 @@ javacOptions ++= Seq( "-source", "1.8", "-target", "1.8", "-Xlint:unchecked", "-
 
 scalacOptions ++= Seq( "-deprecation", "-feature", "-unchecked", "-Yrangepos" )
 
+ThisBuild / versionScheme := Some("semver-spec")
+
 homepage := Some( url( "https://github.com/karelcemus/play-i18n" ) )
 
 licenses := Seq( "Apache 2" -> url( "https://www.apache.org/licenses/LICENSE-2.0" ) )
