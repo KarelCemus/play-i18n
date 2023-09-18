@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
   // play framework cache API
   "com.typesafe.play" %% "play" % playVersion % "provided",
   // YAML parser, Java library
-  "org.yaml" % "snakeyaml" % "1.30",
+  "org.yaml" % "snakeyaml" % "2.0",
   // test framework
   "org.specs2" %% "specs2-core" % specs2Version % "test",
   // test module for play framework

@@ -1,18 +1,14 @@
 package play.ext.i18n.loaders
 
-import play.api.PlayException
-import play.api.PlayException.ExceptionSource
-import play.api.i18n.Messages.MessageSource
-
-import play.ext.i18n.MessagesLoader
-
-import org.yaml.snakeyaml.constructor.Constructor
+import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.nodes.Tag
-import org.yaml.snakeyaml.representer.Representer
 import org.yaml.snakeyaml.resolver.Resolver
 import org.yaml.snakeyaml.resolver.Resolver._
 import org.yaml.snakeyaml.scanner.ScannerException
-import org.yaml.snakeyaml.{DumperOptions, Yaml}
+import play.api.PlayException
+import play.api.PlayException.ExceptionSource
+import play.api.i18n.Messages.MessageSource
+import play.ext.i18n.MessagesLoader
 
 /** YAML messages loader, all data it loads as Strings instead of number, dates, etc.
   *
@@ -27,7 +23,7 @@ class YamlFileLoader extends MessagesLoader {
   override def apply(messageSource: MessageSource, messageSourceName: String): Either[ExceptionSource, Map[String, String]] =
     try {
       // YAML document parser
-      val yaml = new Yaml(new Constructor(), new Representer(), new DumperOptions(), new CustomResolver())
+      val yaml = new Yaml()
       // load data as a hierarchical map
       val data = yaml.loadAs(messageSource.read, classOf[JavaMap])
       val map = if (data == null) Map.empty[String, String] else flatten(data) // flatten the map
