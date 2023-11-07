@@ -11,18 +11,18 @@ scalaVersion := "2.13.12"
 
 crossScalaVersions := Seq(scalaVersion.value, "3.3.1")
 
-val playVersion = "2.9.0"
+val playVersion = "3.0.0"
 
 libraryDependencies ++= Seq(
   // play framework cache API
-  "com.typesafe.play" %% "play" % playVersion % "provided",
+  "org.playframework" %% "play" % playVersion % "provided",
   // YAML parser, Java library
   "org.yaml" % "snakeyaml" % "2.2",
   // test framework
   "org.specs2" %% "specs2-core" % "4.20.3" % "test",
   // test module for play framework
-  "com.typesafe.play" %% "play-test" % playVersion % "test",
-  "com.typesafe.play" %% "play-specs2" % playVersion % "test"
+  "org.playframework" %% "play-test" % playVersion % "test",
+  "org.playframework" %% "play-specs2" % playVersion % "test"
 )
 
 javacOptions ++= Seq("-Xlint:unchecked", "-encoding", "UTF-8")
