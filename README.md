@@ -1,8 +1,8 @@
 <h1 align="center">Multi-format Messaging module<br/> for Play framework</h1>
 
-**Note: This version supports Play framework 2.9.x. For compatibility with previous versions see previous releases.**
+**Note: This version supports Play framework 3.0.x. For compatibility with previous versions see previous releases.**
 
-[Play framework 2](http://playframework.com/) is delivered with default Messaging module using property
+[Play framework](http://playframework.com/) is delivered with default Messaging module using property
 files. The syntax is not much convenient as involves a lot of repetition, thus this module delivers
 an alternative to supporting YAML format for messages including all features of the language.
 
@@ -13,7 +13,7 @@ To your SBT `build.sbt` add the following lines:
 ```scala
 libraryDependencies ++= Seq(
   // YAML localization module
-  "com.github.karelcemus" %% "play-i18n" % "2.4.0"
+  "com.github.karelcemus" %% "play-i18n" % "3.0.0"
 )
 ```
 
