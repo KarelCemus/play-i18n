@@ -13,7 +13,7 @@ import play.ext.i18n.MessagesLoader
 class PropertyFileLoader extends MessagesLoader {
 
   override def apply(messageSource: MessageSource, messageSourceName: String): Either[ExceptionSource, Map[String, String]] = {
-    new MessagesParser(messageSource, "").parse.right.map { messages =>
+    new MessagesParser(messageSource, "").parse.map { messages =>
       messages.map { message => message.key -> message.pattern }.toMap
     }
   }

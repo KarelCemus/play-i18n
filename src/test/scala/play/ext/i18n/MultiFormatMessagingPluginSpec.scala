@@ -1,20 +1,20 @@
 package play.ext.i18n
 
-import play.api.i18n.MessagesApi
+import play.api.i18n.{Lang, MessagesApi}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test._
 
 class MultiFormatMessagingPluginSpec extends PlaySpecification {
 
-  val injector = new GuiceApplicationBuilder().injector()
+  private val injector = new GuiceApplicationBuilder().injector()
 
-  val messages = injector.instanceOf[MessagesApi]
+  private val messages = injector.instanceOf[MessagesApi]
 
-  implicit val default = play.api.i18n.Lang("fr")
+  private implicit val default: Lang = play.api.i18n.Lang("fr")
 
-  val cs = play.api.i18n.Lang("cs")
+  private val cs = play.api.i18n.Lang("cs")
 
-  val en = play.api.i18n.Lang("en")
+  private val en = play.api.i18n.Lang("en")
 
   "Plugin" should {
 
