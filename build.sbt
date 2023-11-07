@@ -39,16 +39,15 @@ publishMavenStyle := true
 
 pomIncludeRepository := { _ => false }
 
-pomExtra :=
-    <scm>
-      <url>git@github.com:KarelCemus/play-i18n.git</url>
-      <connection>scm:git@github.com:KarelCemus/play-i18n.git</connection>
-    </scm>
-    <developers>
-      <developer>
-        <name>Karel Cemus</name>
-      </developer>
-    </developers>
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/KarelCemus/play-i18n.git"),
+    "scm:git@github.com:KarelCemus/play-i18n.git"
+  )
+)
+developers := List(
+  Developer(id="karel.cemus", name="Karel Cemus", email="", url=url("https://github.com/KarelCemus/"))
+)
 
 // Publish settings
 publishTo := sonatypePublishToBundle.value
