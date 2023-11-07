@@ -1,4 +1,3 @@
-import com.jsuereth.sbtpgp.PgpKeys
 import sbt.Keys._
 import sbt._
 
@@ -26,8 +25,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-specs2" % playVersion % "test"
 )
 
-resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
-
 javacOptions ++= Seq("-Xlint:unchecked", "-encoding", "UTF-8")
 
 scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-Yrangepos")
@@ -52,11 +49,6 @@ pomExtra :=
         <name>Karel Cemus</name>
       </developer>
     </developers>
-
-// Release plugin settings
-releaseCrossBuild := true
-releaseTagName := (ThisBuild / version).value
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 // Publish settings
 publishTo := sonatypePublishToBundle.value
