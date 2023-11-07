@@ -42,11 +42,4 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         run: |
-             echo "Building"
-        # sbt --client "+test; +publishSigned;"
-
-      - name: Create a GitHub release
-        uses: ncipollo/release-action@v1
-        with:
-          name: Release ${{ github.ref_name }}
-          generateReleaseNotes: true
+             sbt --client "+test; +publishSigned;"
