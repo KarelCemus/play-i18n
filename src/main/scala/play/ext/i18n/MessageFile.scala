@@ -4,7 +4,7 @@ import play.api._
 
 protected[i18n] case class MessageFile(key: String, name: String, loader: MessagesLoader)(implicit configuration: Configuration, env: Environment) {
 
-  import scala.collection.JavaConverters._
+  import scala.jdk.CollectionConverters._
 
   import play.api.i18n.Messages.UrlMessageSource
   import play.utils.Resources

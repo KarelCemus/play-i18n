@@ -1,6 +1,6 @@
 package play.ext.i18n.loaders
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 import play.api.i18n.Messages.{MessageSource, UrlMessageSource}
 

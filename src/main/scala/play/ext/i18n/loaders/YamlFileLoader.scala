@@ -16,7 +16,7 @@ import play.ext.i18n.MessagesLoader
   */
 class YamlFileLoader extends MessagesLoader {
 
-  import scala.collection.JavaConverters._
+  import scala.jdk.CollectionConverters._
 
   private type JavaMap = java.util.Map[_, _]
 
@@ -25,8 +25,8 @@ class YamlFileLoader extends MessagesLoader {
       // YAML document parser
       val yaml = new Yaml()
       // load data as a hierarchical map
-      val data = yaml.loadAs(messageSource.read, classOf[JavaMap])
-      val map = if (data == null) Map.empty[String, String] else flatten(data) // flatten the map
+      val data: Option[JavaMap] = Option(yaml.loadAs(messageSource.read, classOf[JavaMap]))
+      val map = data.map(flatten).getOrElse(Map.empty[String, String])
       Right(map)
     } catch {
       case exception: ScannerException =>
