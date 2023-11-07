@@ -42,4 +42,4 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         run: |
-             sbt --client "+test; +publishSigned;"
+             sbt --client "+test; +publishSigned; sonatypeBundleRelease;"
