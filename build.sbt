@@ -59,8 +59,4 @@ releaseTagName := (ThisBuild / version).value
 releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 // Publish settings
-publishTo := {
-//  Resolver.sonatypeOssRepos("snapshots")
-  if (isSnapshot.value) None
-  else Some(Opts.resolver.sonatypeStaging)
-}
+publishTo := sonatypePublishToBundle.value
